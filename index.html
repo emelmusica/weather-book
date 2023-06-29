@@ -2,30 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script> <!-- jQuery import code. Loaded from CDN -->
     <script src="https://cdn.tailwindcss.com"></script> <!-- Tailwind CSS import code. Loaded from CDN -->
-    <script
-        src="https://code.jquery.com/jquery-3.7.0.js"
-        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
-        crossorigin="anonymous"></script> <!-- jQuery import code. Loaded from CDN -->
-    <script> 
-        tailwind.config = {
-          theme: {
-            extend: {
-              colors: {}
-            }
-          }
-        }
-      </script> <!-- Tailwind CSS config code. No need to customize-->
-      <script>
-        (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
-          key: "AIzaSyCvdsssjrDocMOxF4Ua1KdDtqU6mxi7UQQ",
-          v: "quarterly",
-        });
-      </script>clear
     <title>Document</title>
 </head>
 <body>
+    
     <div class="min-h-screen flex items-center justify-center">
         <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
             <h1 class="text-3xl font-bold mb-4">Weather Book</h1>
@@ -35,6 +17,10 @@
                     class="w-full border border-gray-300 rounded-md py-2 px-4 focus:outline-none mb-2">
                 <input type="text" placeholder="Destination"
                     class="w-full border border-gray-300 rounded-md py-2 px-4 focus:outline-none">
+            </div>
+
+            <div class="h-96 w-96"> <!-- Map div -->
+                <div id="map"></div>
             </div>
 
             <div class="flex mb-4">
@@ -66,5 +52,10 @@
             </div>
         </div>
     </div>
+    <script>
+        (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+            ({key: "AIzaSyCvdsssjrDocMOxF4Ua1KdDtqU6mxi7UQQ", v: "beta"});
+    </script>
+<script src="./assets/js/script.js"></script>
 </body>
 </html>

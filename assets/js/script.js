@@ -1,15 +1,12 @@
-function initMap() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-  
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: { lat: latitude, lng: longitude },
-          zoom: 12
-        });
-      });
-    } else {
-      alert('Geolocation is not supported by your browser.');
-    }
-  }
+let map;
+
+async function initMap() {
+  const { Map } = await google.maps.importLibrary("maps");
+
+  map = new Map(document.getElementById("map"), {
+    center: { lat: -33.868, lng: 151.209 },
+    zoom: 12,
+  });
+}
+
+initMap();
