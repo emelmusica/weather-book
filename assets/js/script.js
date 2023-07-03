@@ -1,6 +1,11 @@
 const dateEl =$('#date');
+const weatherIcoEl =$('#weather-icon');
+const weatherStaEl =$('#weather-status')
+
 var today = dayjs();
 
+weatherIcoEl.text('Sunny')
+weatherStaEl.text('Sunny, Too Sunny, I hate it')
 
 let map;
 
