@@ -1,51 +1,66 @@
+// Day.js Code
+
 const dateEl =$('#date');
 const weatherIcoEl =$('#weather-icon');
 const weatherStaEl =$('#weather-status');
 
 var today = dayjs();
 
-
 weatherStaEl.text('Sunny, Too Sunny, I hate it')
 weatherIcoEl.text('Sunny')
-
-let map;
-
-async function initMap() {
-  const { Map } = await google.maps.importLibrary("maps");
-
-  map = new Map(document.getElementById("map"), {
-    center: { lat: -33.868, lng: 151.209 },
-    zoom: 12,
-  });
-}
-
 
 function getDate() {
   dateEl.text(today.format('dddd, MMMM D'))
 }
 
-function init(){
-  initMap();
-  getDate();
-}
+// Google Maps API Code Starts
 
-init();
-
-  // Add click event handler for the "Add Address" button
-  $('#addAddressBtn').click(() => {
-    addMarker();
-  });
-});
+let map, directionsService, directionsRenderer;
+let startAutocomplete, destinationAutocomplete;
 
 async function initMap() {
-const { Map, Geocoder } = await google.maps.importLibrary("maps");
 
-map = new Map(document.getElementById("map"), {
-  center: { lat: -33.868, lng: 151.209 },
-  zoom: 12,
-});
+  const { Map, Geocoder } = await google.maps.importLibrary("maps");
+  const { Autocomplete } = await google.maps.importLibrary("places");
+  const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+
+  map = new Map(document.getElementById("map"), {
+    center: { lat: -33.868, lng: 151.209 },
+    zoom: 12,
+  });
+  google.maps.event.addListener(map, "click", function(event){
+    this.setOptions({scrollwheel:true});
+  })
+  directionsService = new google.maps.DirectionsService();
+  directionsRenderer = new google.maps.DirectionsRenderer();
+  directionsRenderer.setMap(map);
+
+  startAutocomplete = new google.maps.places.Autocomplete(
+    document.getElementById('start')
+  );
+  destinationAutocomplete = new google.maps.places.Autocomplete(
+    document.getElementById('dest')
+  );
 }
 
+function calcRoute(){
+  var start = document.getElementById('start').value;
+  var dest = document.getElementById('dest').value;
+  let request = {
+    origin:start,
+    destination:dest,
+    travelMode: 'DRIVING'
+  }
+  directionsService.route(request,function(result,status){
+    if(status == "OK"){
+      directionsRenderer.setDirections(result)
+    }
+  })
+}
+
+initMap(); // Google Maps API Code Ends Here  
+
+// To be reviewed for conflicts
 function addMarker() {
 const addressInput = $('#addressInput');
 const address = addressInput.val().trim();
@@ -71,3 +86,36 @@ if (address !== '') {
   addressInput.val('');
 }
 }
+
+// async function initMap() {
+//   // The location of Uluru
+//   const position = { lat: -25.344, lng: 131.031 };
+//   // Request needed libraries.
+//   //@ts-ignore
+//   const { Map } = await google.maps.importLibrary("maps");
+//   const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+
+//   // The map, centered at Uluru
+//   map = new Map(document.getElementById("map"), {
+//     zoom: 4,
+//     center: position,
+//     mapId: "DEMO_MAP_ID",
+//   });
+
+//   // The marker, positioned at Uluru
+//   const marker = new AdvancedMarkerElement({
+//     map: map,
+//     position: position,
+//     title: "Uluru",
+//   });
+// }
+
+// To be reviewed for conflicts **END**
+
+// On page Load, initialise these codes
+function init(){
+  initMap();
+  getDate();
+}
+
+init();
