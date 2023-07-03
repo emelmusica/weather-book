@@ -1,3 +1,13 @@
+const dateEl =$('#date');
+const weatherIcoEl =$('#weather-icon');
+const weatherStaEl =$('#weather-status');
+
+var today = dayjs();
+
+
+weatherStaEl.text('Sunny, Too Sunny, I hate it')
+weatherIcoEl.text('Sunny')
+
 let map;
 
 async function initMap() {
@@ -9,4 +19,14 @@ async function initMap() {
   });
 }
 
-initMap();
+
+function getDate() {
+  dateEl.text(today.format('dddd, MMMM D'))
+}
+
+function init(){
+  initMap();
+  getDate();
+}
+
+init();
