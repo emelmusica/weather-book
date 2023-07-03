@@ -58,8 +58,6 @@ function calcRoute(){
   })
 }
 
-initMap(); // Google Maps API Code Ends Here  
-
 // To be reviewed for conflicts
 function addMarker() {
 const addressInput = $('#addressInput');
