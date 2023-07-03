@@ -35,7 +35,6 @@ init();
   $('#addAddressBtn').click(() => {
     addMarker();
   });
-});
 
 async function initMap() {
 const { Map, Geocoder } = await google.maps.importLibrary("maps");
