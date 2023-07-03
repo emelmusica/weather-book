@@ -14,7 +14,7 @@ var today = dayjs();
 
 weatherStaEl.text('Sunny, Too Sunny, I hate it');
 weatherIcoEl.text('Cloudy');
-temperatureEl.text('101 F');
+temperatureEl.text( 101 + ' F');
 cityEl.text('Paris, Texas');
 driveTimeEl.text(4+' minutes');
 //pubTranTimeEl.text(5+' minutes');
