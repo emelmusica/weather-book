@@ -1,3 +1,7 @@
+const dateEl =$('#date');
+var today = dayjs();
+
+
 let map;
 
 async function initMap() {
@@ -9,4 +13,14 @@ async function initMap() {
   });
 }
 
-initMap();
+
+function getDate() {
+  dateEl.text(today.format('dddd, MMMM D'))
+}
+
+function init(){
+  initMap();
+  getDate();
+}
+
+init();

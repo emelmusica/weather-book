@@ -5,7 +5,14 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script> <!-- jQuery import code. Loaded from CDN -->
     <script src="https://cdn.tailwindcss.com"></script> <!-- Tailwind CSS import code. Loaded from CDN -->
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
-    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <script
+    src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+    integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+    crossorigin="anonymous"
+  ></script>
+  
+    <title>Weather Boook</title>
 </head>
 <body>
     
@@ -29,7 +36,7 @@
                     <img src="" alt="Weather Icon" class="w-16 h-16 mr-4"> <!-- Enter img src or link api property-->
                     <div>
                         <h2 class="text-2xl font-semibold">New York</h2>
-                        <p class="text-gray-500">Monday, May 29, 2023</p>
+                        <p id="date" class="text-gray-500"></p>
                     </div>
                 </div>
                 <div class="text-4xl font-semibold">22°C</div>
