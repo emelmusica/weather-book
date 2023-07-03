@@ -1,10 +1,21 @@
 var weatherAPIKey = "1594fc5af48b8b63f31969ab3016de9e";
-var city = "Sydney";
+// var city = "Sydney";
 var resultContentEl = $('#weatherAPI');
+var defaultCity = "Sydney";
 
-// api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key};
+var destInputEl = $("#destination");
 
-var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + weatherAPIKey + "&units=metric";
+
+
+var city
+
+if (city != null) {
+  var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + weatherAPIKey + "&units=metric";
+} else {
+  var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + defaultCity + "&appid=" + weatherAPIKey + "&units=metric";
+}
+
+
 
 fetch(queryURL)
   .then(function (response) {
@@ -27,9 +38,16 @@ fetch(queryURL)
         var listItem = $('<li>').text(`${JSON.stringify(key).replace(/["]+/g, '')}: ${JSON.stringify(value).replace(/["]+/g, '')}`);
         $('#weatherAPI').append(listItem);
       });
+
+
     }
     
+    
+
   })
   .catch(function (error) {
     console.error(error);
   });
+
+
+
