@@ -14,16 +14,15 @@ function getDate() {
 }
 
 // Google Maps API Code Starts
-
-let map, directionsService, directionsRenderer;
-let startAutocomplete, destinationAutocomplete;
+let map, directionsService, directionsRenderer, geo;
+let startAutocomplete, destinationAutocomplete, lat, lon;
 
 async function initMap() {
 
   const { Map, Geocoder } = await google.maps.importLibrary("maps");
   const { Autocomplete } = await google.maps.importLibrary("places");
   const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
-
+  geo = await new google.maps.Geocoder();
   map = new Map(document.getElementById("map"), {
     center: { lat: -33.868, lng: 151.209 },
     zoom: 12,
@@ -50,65 +49,23 @@ function calcRoute(){
     origin:start,
     destination:dest,
     travelMode: 'DRIVING'
-  }
+  };
   directionsService.route(request,function(result,status){
     if(status == "OK"){
       directionsRenderer.setDirections(result)
     }
-  })
-}
-
-// To be reviewed for conflicts
-function addMarker() {
-const addressInput = $('#addressInput');
-const address = addressInput.val().trim();
-
-if (address !== '') {
-  const geocoder = new google.maps.Geocoder();
-
-  geocoder.geocode({ address }, (results, status) => {
-    if (status === google.maps.GeocoderStatus.OK) {
-      const location = results[0].geometry.location;
-      const marker = new google.maps.Marker({
-        position: location,
-        map: map,
-        title: address,
-      });
-      markers.push(marker);
-      map.setCenter(location);
-    } else {
-      alert('Geocode was not successful for the following reason: ' + status);
-    }
   });
 
-  addressInput.val('');
+  geo.geocode( { address: dest}, function(results, status) {
+      if (status == 'OK') {
+        lat = results[0].geometry.location.lat();
+        lon = results[0].geometry.location.lng();
+        console.log(lat);
+        console.log(lon);
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }});
 }
-}
-
-// async function initMap() {
-//   // The location of Uluru
-//   const position = { lat: -25.344, lng: 131.031 };
-//   // Request needed libraries.
-//   //@ts-ignore
-//   const { Map } = await google.maps.importLibrary("maps");
-//   const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
-
-//   // The map, centered at Uluru
-//   map = new Map(document.getElementById("map"), {
-//     zoom: 4,
-//     center: position,
-//     mapId: "DEMO_MAP_ID",
-//   });
-
-//   // The marker, positioned at Uluru
-//   const marker = new AdvancedMarkerElement({
-//     map: map,
-//     position: position,
-//     title: "Uluru",
-//   });
-// }
-
-// To be reviewed for conflicts **END**
 
 // On page Load, initialise these codes
 function init(){
