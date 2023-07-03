@@ -17,9 +17,11 @@
 </head>
 <body>
     
-    <div class="min-h-screen flex items-center justify-center">
+    <main class="min-h-screen flex items-center justify-center">
         <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
-            <h1 class="text-3xl font-bold mb-4">Weather Book</h1>
+            <header class="text-3xl indent-7 bg-yellow-100 font-bold mb-4">
+            Weather Book
+            </header>
 
             <div>
                 <input type="text" id="addressInput" placeholder="Enter an address">
@@ -31,23 +33,42 @@
                 <div class="flex items-center">
                     <img src="" alt="Weather Icon" class="w-16 h-16 mr-4"> <!-- Enter img src or link api property-->
                     <div>
-                        <h2 class="text-2xl font-semibold">New York</h2>
+                        <h2 id="city" class="text-2xl font-semibold"></h2>
                         <p id="date" class="text-gray-500"></p>
                     </div>
                 </div>
-                <div class="text-4xl font-semibold">22°C</div>
+                <div id="temperature" class="text-4xl font-semibold"></div>
             </div>
 
             <div class="h-96 w-96"> <!-- Map div -->
                 <div id="map"></div>
             </div>
 
-            <div class="p-4 bg-white rounded-lg shadow-md">
-                <h3 id="weather-status" class="text-xl font-semibold"></h3>
+            <div class="p-4 bg-blue-200 rounded-lg shadow-md text-center"><!--Weather Display Box-->
+                <h3 id="weather-status" class="text-2xl p-5 font-semibold"></h3>
+                <div class="my-10">
                 <span id="weather-icon" class="material-symbols-outlined"></span>
+                </div>
+            </div>
+            <div class="flex flex-row bg-slate-200">
+                <ul class="p-2 my-3 text-right font-semibold w-1/2">
+                    <li>Drive</li>
+                    <li>Public Transport</li>
+                    <li>Walk</li>
+                    <li>Ride Share</li>
+                    <li>Cycle</li>
+                </ul>
+                <ul class="p-2 my-3 text-left w-1/2">
+                    <li id="drive-time">Data Unavailable</li><!--These need to have some value since they li will align incorrectly if an element cannot be reached-->
+                    <li id="public-transport-time">Data Unavailable</li>
+                    <li id="walk-time">Data Unavailable</li>
+                    <li id="share-time">Data Unavailable</li>
+                    <li id="cycle-time">Data Unavailable</li>
+                </ul>
+            
             </div>
         </div>
-    </div>
+    </main>
     <script>
         (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
             ({key: "AIzaSyCvdsssjrDocMOxF4Ua1KdDtqU6mxi7UQQ", v: "beta"});

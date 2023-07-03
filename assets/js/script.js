@@ -1,12 +1,26 @@
 const dateEl =$('#date');
 const weatherIcoEl =$('#weather-icon');
 const weatherStaEl =$('#weather-status');
+const temperatureEl =$('#temperature');
+const cityEl =$('#city')
+const driveTimeEl =$('#drive-time');
+const pubTranTimeEl =$('#public-transport-time');
+const walkTimeEl =$('#walk-time');
+const shareTimeEl =$('#share-time');
+const cycleTimeEl =$('#cycle-time');
 
 var today = dayjs();
 
 
-weatherStaEl.text('Sunny, Too Sunny, I hate it')
-weatherIcoEl.text('Sunny')
+weatherStaEl.text('Sunny, Too Sunny, I hate it');
+weatherIcoEl.text('Cloudy');
+temperatureEl.text('101 F');
+cityEl.text('Paris, Texas');
+driveTimeEl.text(4+' minutes');
+//pubTranTimeEl.text(5+' minutes');
+walkTimeEl.text(123+' minutes');
+shareTimeEl.text(66+' minutes');
+cycleTimeEl.text(78+' minutes');
 
 let map;
 
