@@ -16,6 +16,12 @@ body {
   padding: 0;
 }
 
+#weather-status {
+  text-transform: capitalize;
+}
+
 #weather-icon{
   font-size: 400%;
 }
+
+
