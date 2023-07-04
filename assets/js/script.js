@@ -23,7 +23,7 @@ function getDate() {
 }
 
 // Google Maps API Code Starts
-let map, directionsService, directionsRenderer, geo;
+let map, directionsService, directionsRenderer, geo, start, dest;
 let startAutocomplete, destinationAutocomplete, lat, lon;
 let directionsDriving, directionsBicycling, directionsTransit, directionsWalking;
 let timeWalking, timeDriving, timeTransit, timeBicycling;
@@ -75,19 +75,16 @@ function mapTransit(){
 }
 
 function calcRoute(){
-  var start = document.getElementById('start').value;
-  var dest = document.getElementById('dest').value;
+  start = document.getElementById('start').value;
+  dest = document.getElementById('dest').value;
   directionsService.route({origin:start, destination:dest, travelMode: 'DRIVING'},function(resultDriving,status){
     if(status == "OK"){
       directionsDriving = resultDriving;
       timeDriving = directionsDriving.routes[0].legs[0].duration.text;
       driveTimeEl.text(timeDriving);
       shareTimeEl.text(timeDriving);
-      console.log('it takes ' + timeDriving + ' to drive to your destination.');
       directionsRenderer.setDirections(directionsDriving);
-      console.log("Directions Driving");
-      console.log(directionsDriving);
-      console.log(directionsDriving.routes[0].legs[0].duration.text);
+      saveLocation();
     }
   });
 
@@ -96,10 +93,6 @@ function calcRoute(){
       directionsWalking = resultWalking;
       timeWalking = directionsWalking.routes[0].legs[0].duration.text;
       walkTimeEl.text(timeWalking);
-      console.log('it takes ' + timeWalking + ' to walk to your destination.');
-      console.log("Directions Walking");
-      console.log(directionsWalking);
-      console.log(directionsWalking.routes[0].legs[0].duration.text);
     }
   });
   
@@ -108,10 +101,6 @@ function calcRoute(){
       directionsBicycling = resultBicycling;
       timeBicycling = directionsBicycling.routes[0].legs[0].duration.text;
       cycleTimeEl.text(timeBicycling);
-      console.log('it takes ' + timeBicycling + ' to cycle to your destination.');
-      console.log("Directions Bicycling");
-      console.log(directionsBicycling);
-      console.log(directionsBicycling.routes[0].legs[0].duration.text);
     }
   });
   directionsService.route({origin:start, destination:dest, travelMode: 'TRANSIT'},function(resultTransit,status){
@@ -119,10 +108,6 @@ function calcRoute(){
       directionsTransit = resultTransit;
       timeTransit = directionsTransit.routes[0].legs[0].duration.text;
       pubTranTimeEl.text(timeTransit);
-      console.log('it takes ' + timeTransit + ' to take public transport to your destination.');
-      console.log("Directions Transit");
-      console.log(directionsTransit);
-      console.log(directionsTransit.routes[0].legs[0].duration.text);
     }
   });
   
@@ -132,8 +117,6 @@ function calcRoute(){
       if (status == 'OK') {
         lat = results[0].geometry.location.lat();
         lon = results[0].geometry.location.lng();
-        console.log(lat);
-        console.log(lon);
         getWeather(lat, lon);
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
@@ -142,11 +125,25 @@ function calcRoute(){
 
 
 
+// Save and Read Start and Destination locations
+function saveLocation(){
+  localStorage.setItem("start", JSON.stringify(start));
+  localStorage.setItem("dest", JSON.stringify(dest));
+}
+function readLocation(){
+  start = JSON.parse(localStorage.getItem("start"));
+  dest = JSON.parse(localStorage.getItem("dest"));
+  document.getElementById('start').value = start;
+  document.getElementById('dest').value = dest;
+}
+
+
 // On page Load, initialise these codes
 function init(){
   initMap();
   getDate();
-}
+  readLocation();
+};
 
 init();
 
@@ -183,4 +180,3 @@ function getWeather(lat, lon) {
     });
 
 }
-
