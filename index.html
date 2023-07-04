@@ -30,11 +30,18 @@
 
 
             <div class="flex flex-row">
-                <input class="placeholder:text-slate-400 block bg-white w-3/4 border border-slate-300 rounded-md py-2 pl-4 pr-4 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1" type="text" id="addressInput" placeholder="Enter an address">
+                <div class="flex flex-col items-center mb-4">
+                    <input type="text" id="start" placeholder="Starting Location" class="w-full border border-gray-300 rounded-md py-2 px-4 focus:outline-none mb-2">
+                    <input type="text" id="dest" placeholder="Destination" class="w-full border border-gray-300 rounded-md py-2 px-4 focus:outline-none">
+                </div>
+                <div class="flex flex-col items-center mb-4">
+                    <button onclick="calcRoute()" class="bg-black hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Magic!</button>
+                </div>
+                <!-- <input class="placeholder:text-slate-400 block bg-white w-3/4 border border-slate-300 rounded-md py-2 pl-4 pr-4 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1" type="text" id="addressInput" placeholder="Enter an address">
                 <div class="pl-1 flex justify-end w-1/4">
                 <button id="addAddressBtn" type="button" class="rounded-lg bg-black text-white p-2">
                 Add Address</button>
-                </div>
+                </div> -->
 
             </div>
 
