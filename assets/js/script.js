@@ -95,36 +95,31 @@ init();
 
 function getWeather(lat, lon) {
   var weatherAPIKey = "1594fc5af48b8b63f31969ab3016de9e";
-// var city = "Sydney";
-var resultContentEl = $('#weatherAPI');
+  var queryURL = "http://api.openweathermap.org/data/2.5/weather?" + "lat=" + lat + "&lon=" + lon + "&appid=" + weatherAPIKey + "&units=metric";
 
-// api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key};
-
-var queryURL = "http://api.openweathermap.org/data/2.5/weather?" + "lat=" + lat + "&lon=" + lon + "&appid=" + weatherAPIKey + "&units=metric";
-
-fetch(queryURL)
-  .then(function (response) {
-    if (!response.ok) {
-      throw response.json();
-    }
-    return response.json();
-  })
-  .then(function (locRes) {
+  fetch(queryURL)
+    .then(function (response) {
+      if (!response.ok) {
+        throw response.json();
+      }
+      return response.json();
+    })
+    .then(function (locRes) {
 
 
-    console.log(locRes);
+      console.log(locRes);
 
-    if (!locRes) {
-      console.log('No results found!');
-      resultContentEl.innerHTML = '<h3>couldn\'t find the weather!</h3>';
-    } else {
-      console.log(locRes.weather, locRes.main);
-    }
-    
-  })
-  .catch(function (error) {
-    console.error(error);
-  });
+      if (!locRes) {
+        console.log('No results found!');
+      } else {
+        console.log(locRes.weather, locRes.main);
+        $('#weather-status').text(locRes.weather[0].main);
+        $('#temperature').text(locRes.main.temp + "c");
+      }
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
 
 }
 
