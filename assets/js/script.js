@@ -88,9 +88,6 @@ function init(){
   getDate();
 }
 
-<<<<<<< Updated upstream
-init();
-=======
 init();
 
 
@@ -98,7 +95,6 @@ init();
 
 function getWeather(lat, lon) {
   var weatherAPIKey = "1594fc5af48b8b63f31969ab3016de9e";
-  var resultContentEl = $('#weatherAPI');
   var queryURL = "http://api.openweathermap.org/data/2.5/weather?" + "lat=" + lat + "&lon=" + lon + "&appid=" + weatherAPIKey + "&units=metric";
 
   fetch(queryURL)
@@ -115,11 +111,11 @@ function getWeather(lat, lon) {
 
       if (!locRes) {
         console.log('No results found!');
-        // resultContentEl.innerHTML = '<h3>couldn\'t find the weather!</h3>';
       } else {
         console.log(locRes.weather, locRes.main);
+        $('#weather-status').text(locRes.weather[0].main);
+        $('#temperature').text(locRes.main.temp + "c");
       }
-      
     })
     .catch(function (error) {
       console.error(error);
@@ -127,4 +123,3 @@ function getWeather(lat, lon) {
 
 }
 
->>>>>>> Stashed changes
