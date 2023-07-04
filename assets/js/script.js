@@ -175,7 +175,7 @@ function getWeather(lat, lon) {
         console.log(locRes.weather, locRes.main);
         $('#weather-status').text(locRes.weather[0].description);
         $('#temperature').text(locRes.main.temp + "°C");
-        
+        $('#weather-icon').attr('src', 'https://openweathermap.org/img/wn/' + locRes.weather[0].icon +'@2x.png')  
       }
     })
     .catch(function (error) {
