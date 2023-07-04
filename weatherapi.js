@@ -11,7 +11,6 @@ fetch(queryURL)
     if (!response.ok) {
       throw response.json();
     }
-
     return response.json();
   })
   .then(function (locRes) {

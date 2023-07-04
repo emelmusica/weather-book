@@ -62,6 +62,7 @@ function calcRoute(){
         lon = results[0].geometry.location.lng();
         console.log(lat);
         console.log(lon);
+        getWeather(lat, lon);
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }});
@@ -74,3 +75,42 @@ function init(){
 }
 
 init();
+
+
+//openweather api
+
+function getWeather(lat, lon) {
+  var weatherAPIKey = "1594fc5af48b8b63f31969ab3016de9e";
+// var city = "Sydney";
+var resultContentEl = $('#weatherAPI');
+
+// api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key};
+
+var queryURL = "http://api.openweathermap.org/data/2.5/weather?" + "lat=" + lat + "&lon=" + lon + "&appid=" + weatherAPIKey + "&units=metric";
+
+fetch(queryURL)
+  .then(function (response) {
+    if (!response.ok) {
+      throw response.json();
+    }
+    return response.json();
+  })
+  .then(function (locRes) {
+
+
+    console.log(locRes);
+
+    if (!locRes) {
+      console.log('No results found!');
+      resultContentEl.innerHTML = '<h3>couldn\'t find the weather!</h3>';
+    } else {
+      console.log(locRes.weather, locRes.main);
+    }
+    
+  })
+  .catch(function (error) {
+    console.error(error);
+  });
+
+}
+
