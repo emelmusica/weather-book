@@ -30,6 +30,8 @@ function getDate() {
 // Google Maps API Code Starts
 let map, directionsService, directionsRenderer, geo;
 let startAutocomplete, destinationAutocomplete, lat, lon;
+let directionsDriving, directionsBicycling, directionsTransit, directionsWalking;
+let timeWalking, timeDriving, timeTransit, timeBicycling;
 
 async function initMap() {
 
@@ -56,19 +58,75 @@ async function initMap() {
   );
 }
 
+function mapDriving(){
+  if (setDirections === true){
+    directionsRenderer.setDirections(directionsDriving);
+  }
+}
+function mapWalking(){
+  if (setDirections === true){
+    directionsRenderer.setDirections(directionsWalking);
+  }
+}
+function mapBicycling(){
+  if (setDirections === true){
+    directionsRenderer.setDirections(directionsBicycling);
+  }
+}
+function mapTransit(){
+  if (setDirections === true){
+    directionsRenderer.setDirections(directionsTransit);
+  }
+}
+
 function calcRoute(){
   var start = document.getElementById('start').value;
   var dest = document.getElementById('dest').value;
-  let request = {
-    origin:start,
-    destination:dest,
-    travelMode: 'DRIVING'
-  };
-  directionsService.route(request,function(result,status){
+  directionsService.route({origin:start, destination:dest, travelMode: 'DRIVING'},function(result,status){
     if(status == "OK"){
-      directionsRenderer.setDirections(result)
+      directionsDriving = result;
+      timeDriving = directionsDriving.routes[0].legs[0].duration.text;
+      console.log('it takes ' + timeDriving + ' to drive to your destination.');
+      directionsRenderer.setDirections(directionsDriving);
+      console.log("Directions Driving");
+      console.log(directionsDriving);
+      console.log(directionsDriving.routes[0].legs[0].duration.text);
     }
   });
+
+  directionsService.route({origin:start, destination:dest, travelMode: 'WALKING'},function(result,status){
+    if(status == "OK"){
+      directionsWalking = result;
+      timeWalking = directionsWalking.routes[0].legs[0].duration.text;
+      console.log('it takes ' + timeWalking + ' to walk to your destination.');
+      console.log("Directions Walking");
+      console.log(directionsWalking);
+      console.log(directionsWalking.routes[0].legs[0].duration.text);
+    }
+  });
+  
+  directionsService.route({origin:start, destination:dest, travelMode: 'BICYCLING'},function(result,status){
+    if(status == "OK"){
+      directionsBicycling = result;
+      timeBicycling = directionsBicycling.routes[0].legs[0].duration.text;
+      console.log('it takes ' + timeBicycling + ' to cycle to your destination.');
+      console.log("Directions Bicycling");
+      console.log(directionsBicycling);
+      console.log(directionsBicycling.routes[0].legs[0].duration.text);
+    }
+  });
+  directionsService.route({origin:start, destination:dest, travelMode: 'TRANSIT'},function(result,status){
+    if(status == "OK"){
+      directionsTransit = result;
+      timeTransit = directionsTransit.routes[0].legs[0].duration.text;
+      console.log('it takes ' + timeTransit + ' to take public transport to your destination.');
+      console.log("Directions Transit");
+      console.log(directionsTransit);
+      console.log(directionsTransit.routes[0].legs[0].duration.text);
+    }
+  });
+  
+
 
   geo.geocode( { address: dest}, function(results, status) {
       if (status == 'OK') {
@@ -80,7 +138,9 @@ function calcRoute(){
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }});
-}
+} // Google Maps API Ends here
+
+
 
 // On page Load, initialise these codes
 function init(){

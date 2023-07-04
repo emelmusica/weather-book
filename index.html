@@ -68,18 +68,18 @@
             </div>
             <div class="flex flex-row bg-slate-200">
                 <ul class="p-2 my-3 text-right font-semibold w-1/2">
-                    <li>Drive</li>
-                    <li>Public Transport</li>
-                    <li>Walk</li>
-                    <li>Ride Share</li>
-                    <li>Cycle</li>
+                    <li onclick="mapDriving()">Drive</li>
+                    <li onclick="mapTransit()">Public Transport</li>
+                    <li onclick="mapWalking()">Walk</li>
+                    <li onclick="mapDriving()">Ride Share</li>
+                    <li onclick="mapBicycling()">Cycle</li>
                 </ul>
                 <ul class="p-2 my-3 text-left w-1/2">
-                    <li id="drive-time">Data Unavailable</li><!--These need to have some value since they li will align incorrectly if element cannot be reached-->
-                    <li id="public-transport-time">Data Unavailable</li>
-                    <li id="walk-time">Data Unavailable</li>
-                    <li id="share-time">Data Unavailable</li>
-                    <li id="cycle-time">Data Unavailable</li>
+                    <li id="drive-time" onclick="mapDriving()">Data Unavailable</li><!--These need to have some value since they li will align incorrectly if element cannot be reached-->
+                    <li id="public-transport-time" onclick="mapTransit()">Data Unavailable</li>
+                    <li id="walk-time" onclick="mapWalking()">Data Unavailable</li>
+                    <li id="share-time" onclick="mapDriving()">Data Unavailable</li>
+                    <li id="cycle-time" onclick="mapBicycling()">Data Unavailable</li>
                 </ul>
             
             </div>
