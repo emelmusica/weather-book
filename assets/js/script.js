@@ -17,11 +17,11 @@ weatherStaEl.text('Sunny, Too Sunny, I hate it');
 weatherIcoEl.text('Cloudy');
 temperatureEl.text( 101 + ' F');
 cityEl.text('Paris, Texas');
-driveTimeEl.text(4+' minutes');
-//pubTranTimeEl.text(5+' minutes');
-walkTimeEl.text(123+' minutes');
-shareTimeEl.text(66+' minutes');
-cycleTimeEl.text(78+' minutes');
+// driveTimeEl.text(4+' minutes');
+// pubTranTimeEl.text(5+' minutes');
+// walkTimeEl.text(123+' minutes');
+// shareTimeEl.text(66+' minutes');
+// cycleTimeEl.text(78+' minutes');
 
 function getDate() {
   dateEl.text(today.format('dddd, MMMM D'))
@@ -59,22 +59,22 @@ async function initMap() {
 }
 
 function mapDriving(){
-  if (setDirections === true){
+  if (directionsDriving){
     directionsRenderer.setDirections(directionsDriving);
   }
 }
 function mapWalking(){
-  if (setDirections === true){
+  if (directionsWalking){
     directionsRenderer.setDirections(directionsWalking);
   }
 }
 function mapBicycling(){
-  if (setDirections === true){
+  if (directionsBicycling){
     directionsRenderer.setDirections(directionsBicycling);
   }
 }
 function mapTransit(){
-  if (setDirections === true){
+  if (directionsTransit){
     directionsRenderer.setDirections(directionsTransit);
   }
 }
@@ -82,10 +82,12 @@ function mapTransit(){
 function calcRoute(){
   var start = document.getElementById('start').value;
   var dest = document.getElementById('dest').value;
-  directionsService.route({origin:start, destination:dest, travelMode: 'DRIVING'},function(result,status){
+  directionsService.route({origin:start, destination:dest, travelMode: 'DRIVING'},function(resultDriving,status){
     if(status == "OK"){
-      directionsDriving = result;
+      directionsDriving = resultDriving;
       timeDriving = directionsDriving.routes[0].legs[0].duration.text;
+      driveTimeEl.text(timeDriving);
+      shareTimeEl.text(timeDriving);
       console.log('it takes ' + timeDriving + ' to drive to your destination.');
       directionsRenderer.setDirections(directionsDriving);
       console.log("Directions Driving");
@@ -94,10 +96,11 @@ function calcRoute(){
     }
   });
 
-  directionsService.route({origin:start, destination:dest, travelMode: 'WALKING'},function(result,status){
+  directionsService.route({origin:start, destination:dest, travelMode: 'WALKING'},function(resultWalking,status){
     if(status == "OK"){
-      directionsWalking = result;
+      directionsWalking = resultWalking;
       timeWalking = directionsWalking.routes[0].legs[0].duration.text;
+      walkTimeEl.text(timeWalking);
       console.log('it takes ' + timeWalking + ' to walk to your destination.');
       console.log("Directions Walking");
       console.log(directionsWalking);
@@ -105,20 +108,22 @@ function calcRoute(){
     }
   });
   
-  directionsService.route({origin:start, destination:dest, travelMode: 'BICYCLING'},function(result,status){
+  directionsService.route({origin:start, destination:dest, travelMode: 'BICYCLING'},function(resultBicycling,status){
     if(status == "OK"){
-      directionsBicycling = result;
+      directionsBicycling = resultBicycling;
       timeBicycling = directionsBicycling.routes[0].legs[0].duration.text;
+      cycleTimeEl.text(timeBicycling);
       console.log('it takes ' + timeBicycling + ' to cycle to your destination.');
       console.log("Directions Bicycling");
       console.log(directionsBicycling);
       console.log(directionsBicycling.routes[0].legs[0].duration.text);
     }
   });
-  directionsService.route({origin:start, destination:dest, travelMode: 'TRANSIT'},function(result,status){
+  directionsService.route({origin:start, destination:dest, travelMode: 'TRANSIT'},function(resultTransit,status){
     if(status == "OK"){
-      directionsTransit = result;
+      directionsTransit = resultTransit;
       timeTransit = directionsTransit.routes[0].legs[0].duration.text;
+      pubTranTimeEl.text(timeTransit);
       console.log('it takes ' + timeTransit + ' to take public transport to your destination.');
       console.log("Directions Transit");
       console.log(directionsTransit);
