@@ -17,11 +17,6 @@ weatherStaEl.text('Sunny, Too Sunny, I hate it');
 weatherIcoEl.text('Cloudy');
 temperatureEl.text( 101 + ' F');
 cityEl.text('Paris, Texas');
-driveTimeEl.text(4+' minutes');
-//pubTranTimeEl.text(5+' minutes');
-walkTimeEl.text(123+' minutes');
-shareTimeEl.text(66+' minutes');
-cycleTimeEl.text(78+' minutes');
 
 function getDate() {
   dateEl.text(today.format('dddd, MMMM D'))
@@ -30,6 +25,8 @@ function getDate() {
 // Google Maps API Code Starts
 let map, directionsService, directionsRenderer, geo;
 let startAutocomplete, destinationAutocomplete, lat, lon;
+let directionsDriving, directionsBicycling, directionsTransit, directionsWalking;
+let timeWalking, timeDriving, timeTransit, timeBicycling;
 
 async function initMap() {
 
@@ -56,19 +53,80 @@ async function initMap() {
   );
 }
 
+function mapDriving(){
+  if (directionsDriving){
+    directionsRenderer.setDirections(directionsDriving);
+  }
+}
+function mapWalking(){
+  if (directionsWalking){
+    directionsRenderer.setDirections(directionsWalking);
+  }
+}
+function mapBicycling(){
+  if (directionsBicycling){
+    directionsRenderer.setDirections(directionsBicycling);
+  }
+}
+function mapTransit(){
+  if (directionsTransit){
+    directionsRenderer.setDirections(directionsTransit);
+  }
+}
+
 function calcRoute(){
   var start = document.getElementById('start').value;
   var dest = document.getElementById('dest').value;
-  let request = {
-    origin:start,
-    destination:dest,
-    travelMode: 'DRIVING'
-  };
-  directionsService.route(request,function(result,status){
+  directionsService.route({origin:start, destination:dest, travelMode: 'DRIVING'},function(resultDriving,status){
     if(status == "OK"){
-      directionsRenderer.setDirections(result)
+      directionsDriving = resultDriving;
+      timeDriving = directionsDriving.routes[0].legs[0].duration.text;
+      driveTimeEl.text(timeDriving);
+      shareTimeEl.text(timeDriving);
+      console.log('it takes ' + timeDriving + ' to drive to your destination.');
+      directionsRenderer.setDirections(directionsDriving);
+      console.log("Directions Driving");
+      console.log(directionsDriving);
+      console.log(directionsDriving.routes[0].legs[0].duration.text);
     }
   });
+
+  directionsService.route({origin:start, destination:dest, travelMode: 'WALKING'},function(resultWalking,status){
+    if(status == "OK"){
+      directionsWalking = resultWalking;
+      timeWalking = directionsWalking.routes[0].legs[0].duration.text;
+      walkTimeEl.text(timeWalking);
+      console.log('it takes ' + timeWalking + ' to walk to your destination.');
+      console.log("Directions Walking");
+      console.log(directionsWalking);
+      console.log(directionsWalking.routes[0].legs[0].duration.text);
+    }
+  });
+  
+  directionsService.route({origin:start, destination:dest, travelMode: 'BICYCLING'},function(resultBicycling,status){
+    if(status == "OK"){
+      directionsBicycling = resultBicycling;
+      timeBicycling = directionsBicycling.routes[0].legs[0].duration.text;
+      cycleTimeEl.text(timeBicycling);
+      console.log('it takes ' + timeBicycling + ' to cycle to your destination.');
+      console.log("Directions Bicycling");
+      console.log(directionsBicycling);
+      console.log(directionsBicycling.routes[0].legs[0].duration.text);
+    }
+  });
+  directionsService.route({origin:start, destination:dest, travelMode: 'TRANSIT'},function(resultTransit,status){
+    if(status == "OK"){
+      directionsTransit = resultTransit;
+      timeTransit = directionsTransit.routes[0].legs[0].duration.text;
+      pubTranTimeEl.text(timeTransit);
+      console.log('it takes ' + timeTransit + ' to take public transport to your destination.');
+      console.log("Directions Transit");
+      console.log(directionsTransit);
+      console.log(directionsTransit.routes[0].legs[0].duration.text);
+    }
+  });
+  
+
 
   geo.geocode( { address: dest}, function(results, status) {
       if (status == 'OK') {
@@ -80,7 +138,9 @@ function calcRoute(){
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }});
-}
+} // Google Maps API Ends here
+
+
 
 // On page Load, initialise these codes
 function init(){
@@ -95,36 +155,32 @@ init();
 
 function getWeather(lat, lon) {
   var weatherAPIKey = "1594fc5af48b8b63f31969ab3016de9e";
-// var city = "Sydney";
-var resultContentEl = $('#weatherAPI');
+  var queryURL = "http://api.openweathermap.org/data/2.5/weather?" + "lat=" + lat + "&lon=" + lon + "&appid=" + weatherAPIKey + "&units=metric";
 
-// api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key};
-
-var queryURL = "http://api.openweathermap.org/data/2.5/weather?" + "lat=" + lat + "&lon=" + lon + "&appid=" + weatherAPIKey + "&units=metric";
-
-fetch(queryURL)
-  .then(function (response) {
-    if (!response.ok) {
-      throw response.json();
-    }
-    return response.json();
-  })
-  .then(function (locRes) {
+  fetch(queryURL)
+    .then(function (response) {
+      if (!response.ok) {
+        throw response.json();
+      }
+      return response.json();
+    })
+    .then(function (locRes) {
 
 
-    console.log(locRes);
+      console.log(locRes);
 
-    if (!locRes) {
-      console.log('No results found!');
-      resultContentEl.innerHTML = '<h3>couldn\'t find the weather!</h3>';
-    } else {
-      console.log(locRes.weather, locRes.main);
-    }
-    
-  })
-  .catch(function (error) {
-    console.error(error);
-  });
+      if (!locRes) {
+        console.log('No results found!');
+      } else {
+        console.log(locRes.weather, locRes.main);
+        $('#weather-status').text(locRes.weather[0].description);
+        $('#temperature').text(locRes.main.temp + "°C");
+        $('#weather-icon').attr('src', 'https://openweathermap.org/img/wn/' + locRes.weather[0].icon +'@2x.png')  
+      }
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
 
 }
 

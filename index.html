@@ -44,33 +44,33 @@
                     </div>
                     </div>
                 </div>
-            <section class="md:flex md:flex-row items-stretch md:w-100">
-                <div class="h-96 w-96 p-4"> <!-- Map div -->
-                    <div id="map"></div>
+            </div>
+            <section class="md:flex md:flex-row items-stretch">
+                <div class="h-96 w-96"> <!-- Map div -->
+                <div id="map"></div>
                 </div>
 
-                <div class="p-4 bg-blue-200 rounded-lg shadow-md text-center p-12"><!--Weather Display Box-->
-                    <h3 id="weather-status" class="text-2xl p-5 font-semibold"></h3>
-                    <div class="my-10">
-                    <span id="weather-icon" class="material-symbols-outlined"></span>
-                    </div>
-                    <div id="temperature" class="text-4xl font-semibold py-1"></div>
+            <div class="p-4 bg-blue-200 rounded-lg shadow-md text-center py-12"><!--Weather Display Box-->
+                <h3 id="weather-status" class="text-2xl p-5 font-semibold"></h3>
+                <div class="my-10">
+                <img id="weather-icon" class="material-symbols-outlined"></img>
                 </div>
-
-                <div class="flex flex-row bg-slate-200 rounded-lg py-8 min-w-fit"><!--Travel Options Display-->
-                <ul class="ml-5 p-2 my-3 text-right font-semibold Flex-none">
-                    <li>Drive</li>
-                    <li>Public Transport</li>
-                    <li>Walk</li>
-                    <li>Ride Share</li>
-                    <li>Cycle</li>
+                <div id="temperature" class="text-4xl font-semibold py-1"></div>
+            </div>
+            <div class="flex flex-row bg-slate-200 rounded-lg py-8 min-w-fit"><!--Travel Options Display-->
+                <ul class="p-2 my-3 text-right font-semibold Flex-none">
+                    <li onclick="mapDriving()">Drive</li>
+                    <li onclick="mapTransit()">Public Transport</li>
+                    <li onclick="mapWalking()">Walk</li>
+                    <li onclick="mapDriving()">Ride Share</li>
+                    <li onclick="mapBicycling()">Cycle</li>
                 </ul>
                 <ul class="p-2 my-3 text-left Flex-none">
-                    <li id="drive-time">Data Unavailable</li><!--These need to have some value since they li will align incorrectly if element cannot be reached-->
-                    <li id="public-transport-time">Data Unavailable</li>
-                    <li id="walk-time">Data Unavailable</li>
-                    <li id="share-time">Data Unavailable</li>
-                    <li id="cycle-time">Data Unavailable</li>
+                    <li id="drive-time" onclick="mapDriving()">Data Unavailable</li><!--These need to have some value since they li will align incorrectly if element cannot be reached-->
+                    <li id="public-transport-time" onclick="mapTransit()">Data Unavailable</li>
+                    <li id="walk-time" onclick="mapWalking()">Data Unavailable</li>
+                    <li id="share-time" onclick="mapDriving()">Data Unavailable</li>
+                    <li id="cycle-time" onclick="mapBicycling()">Data Unavailable</li>
                 </ul>
             
             </section>
