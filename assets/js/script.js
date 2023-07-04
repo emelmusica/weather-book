@@ -173,8 +173,9 @@ function getWeather(lat, lon) {
         console.log('No results found!');
       } else {
         console.log(locRes.weather, locRes.main);
-        $('#weather-status').text(locRes.weather[0].main);
-        $('#temperature').text(locRes.main.temp + "c");
+        $('#weather-status').text(locRes.weather[0].description);
+        $('#temperature').text(locRes.main.temp + "°C");
+        
       }
     })
     .catch(function (error) {
