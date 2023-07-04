@@ -76,6 +76,7 @@ function calcRoute(){
         lon = results[0].geometry.location.lng();
         console.log(lat);
         console.log(lon);
+        getWeather(lat, lon);
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }});
