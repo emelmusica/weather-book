@@ -13,10 +13,7 @@ const cycleTimeEl =$('#cycle-time');
 
 var today = dayjs();
 
-weatherStaEl.text('Sunny, Too Sunny, I hate it');
-weatherIcoEl.text('Cloudy');
-temperatureEl.text( 101 + ' F');
-cityEl.text('Paris, Texas');
+weatherStaEl.text('Check Weather at your Destination')
 
 function getDate() {
   dateEl.text(today.format('dddd, MMMM D'))
