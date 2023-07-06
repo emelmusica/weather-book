@@ -16,7 +16,7 @@ var today = dayjs();
 weatherStaEl.text('Sunny, Too Sunny, I hate it');
 weatherIcoEl.text('Cloudy');
 temperatureEl.text( 101 + ' F');
-cityEl.text('Paris, Texas');
+cityEl.text('Please make your selection');
 
 function getDate() {
   dateEl.text(today.format('dddd, MMMM D'))
@@ -46,10 +46,12 @@ async function initMap() {
   directionsRenderer.setMap(map);
 
   startAutocomplete = new google.maps.places.Autocomplete(
-    document.getElementById('start')
+    document.getElementById('start'),
+    {componentRestrictions: { country: "au" }}
   );
   destinationAutocomplete = new google.maps.places.Autocomplete(
-    document.getElementById('dest')
+    document.getElementById('dest'),
+    {componentRestrictions: { country: "au" }}
   );
 }
 
@@ -119,7 +121,7 @@ function calcRoute(){
         lon = results[0].geometry.location.lng();
         getWeather(lat, lon);
       } else {
-        alert('Geocode was not successful for the following reason: ' + status);
+        console.log('Geocode was not successful for the following reason: ' + status);
       }});
 } // Google Maps API Ends here
 
