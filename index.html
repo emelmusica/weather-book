@@ -6,79 +6,77 @@
     <script src="https://cdn.tailwindcss.com"></script> <!-- Tailwind CSS import code. Loaded from CDN -->
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
     <script
-    src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
-    integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
-    crossorigin="anonymous"></script><!--Dayjs import code-->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /><!--Google Font weather icon import code-->
-  
-
+        src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+        integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+        crossorigin="anonymous"></script><!--Dayjs import code-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /><!--Google Font weather icon import code-->
     <title>Rain Check</title>
 </head>
 
-<body>
-    <header class="bg-yellow-400">
-        <div class="text-3xl indent-7 p-5 font-bold mb-4">
-        Rain Check
-        </div>
-    </header>
-    
-    <main class="bg-white rounded-lg shadow-lg m-5 sm:items-center">
-                
-                <div class="flex flex-col max-w-lg"><!--Input Div-->
-                <input type="text" id="start" placeholder="Starting Location" class="mb-4 w-3/4 border border-gray-300 rounded-md py-2 px-4 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 mb-2">
-                <div class="flex flex-row"> 
-                <input type="text" id="dest" placeholder="Destination" class="mb-4 w-3/4 border border-gray-300 rounded-md py-2 px-4 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1">
-                    <div class="mb-4 ml-1 w-1/4">
-                        <button onclick="calcRoute()" class="bg-black hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Check!</button>
-                    </div>
-                </div>
-                </div>
-           
-                <div class="flex mb-4">
-                    <div class="flex items-center">
-                    <img src="./assets/icons8-map-pointer-66.png" alt="Weather Icon" class="w-16 h-16 mr-4">
-                    <div>
-                        <h2 id="current-route" class="text-2xl font-semibold"></h2>
-                        <p id="date" class="text-gray-500"></p>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            <section class="md:flex md:flex-row md:space-x-4 space-y-4 ">
-                <div class="h-96 w-96 items-center"> <!-- Map div -->
-                    <div id="map" class="rounded-lg"></div>
-                </div>
+<body class="h-full w-full">
+<header class="bg-yellow-400">
+    <div class="text-3xl indent-7 p-5 font-bold mb-4">Rain Check</div>
+</header>
 
-                <div class="bg-blue-200 rounded-lg shadow-md text-center min-w-fit max-w-lg w-[380px]"><!--Weather Display Box-->
-                    <h3 id="weather-status" class="text-2xl p-5 font-semibold"></h3>
-                    <div class="my-10">
-                    <img id="weather-icon" class="material-symbols-outlined"></img>
-                    </div>
-                <div id="temperature" class="text-4xl font-semibold py-1"></div>
-                </div>
+<main class="bg-white m-5 justify-center content-center items-center">
+    <!--Input Div-->
+    <div class="flex justify-center items-center m-4"> 
         
-                <div class="flex flex-row bg-slate-200 rounded-lg py-8 min-w-fit max-w-lg w-[380px]"><!--Travel Options Display-->
-                    <ul class="p-2 m-3 text-right font-semibold Flex-none space-y-7">
-                    <li onclick="mapDriving()">Drive</li>
-                    <li onclick="mapTransit()">Public Transport</li>
-                    <li onclick="mapWalking()">Walk</li>
-                    <li onclick="mapDriving()">Ride Share</li>
-                    <li onclick="mapBicycling()">Cycle</li>
-                    </ul>
-                    <ul class="p-2 m-3 text-left Flex-none space-y-7">
-                    <li id="drive-time" onclick="mapDriving()">Data Unavailable</li><!--These need to have some value since they li will align incorrectly if element cannot be reached-->
-                    <li id="public-transport-time" onclick="mapTransit()">Data Unavailable</li>
-                    <li id="walk-time" onclick="mapWalking()">Data Unavailable</li>
-                    <li id="share-time" onclick="mapDriving()">Data Unavailable</li>
-                    <li id="cycle-time" onclick="mapBicycling()">Data Unavailable</li>
-                    </ul>
-                </div>
-            </section>
-    </main>
-    <script>
-        (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
-            ({key: "AIzaSyCvdsssjrDocMOxF4Ua1KdDtqU6mxi7UQQ", v: "beta"});
-    </script>
+        <div class="w-96 grid-row justify-center items-center">
+            <input type="text" id="start" placeholder="Starting Location" class="
+                m-3 w-full border border-gray-300 rounded-md py-2 px-4 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-2">
+            <input type="text" id="dest" placeholder="Destination" class="
+                m-3 w-full border border-gray-300 rounded-md py-2 px-4 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-2">
+            <button onclick="calcRoute()" class="
+                m-3 w-full bg-black hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Check!</button>
+        </div>
+    </div>
+    <!-- Weather Icon and City and Date -->
+    <div class="flex justify-center items-center m-4">
+        <img src="" alt="Weather Icon" class="w-16 h-16 mr-4"> <!-- Enter img src or link api property-->
+        <div>
+            <h2 id="city" class="text-2xl font-semibold"></h2>
+            <p id="date" class="text-gray-500"></p>
+        </div>
+    </div>
+    <!-- Three Tiles space-x-3 space-y-3 -->
+    <section class="flex flex-row flex-auto flex-wrap">
+        <!-- Map Tile m-3 p-3 -->
+        <div class="h-96 w-96 m-3 rounded-lg shadow-md">
+            <div id="map" class="rounded-lg h-96 w-96 m-0 p-0"></div>
+        </div>
+        <!--Weather Display Box-->
+        <div class="h-96 w-96 m-3 bg-blue-200 rounded-lg text-center shadow-md">
+            <h3 id="weather-status" class="text-2xl p-5 font-semibold"></h3>
+            <div class="my-10">
+                <img id="weather-icon" class="material-symbols-outlined" />
+            </div>
+            <div id="temperature" class="text-4xl font-semibold py-1"></div>
+        </div>
+
+        <!-- Directions Box -->
+        <div class="h-96 w-96 m-3 flex flex-row bg-slate-200 shadow-md rounded-lg"><!--Travel Options Display-->
+            <ul class="p-2 m-3 text-right font-semibold Flex-none">
+            <li onclick="mapDriving()">Drive</li>
+            <li onclick="mapTransit()">Public Transport</li>
+            <li onclick="mapWalking()">Walk</li>
+            <li onclick="mapDriving()">Ride Share</li>
+            <li onclick="mapBicycling()">Cycle</li>
+            </ul>
+            <ul class="p-2 m-3 text-left Flex-none">
+            <li id="drive-time" onclick="mapDriving()">Please select your route</li><!--These need to have some value since they li will align incorrectly if element cannot be reached-->
+            <li id="public-transport-time" onclick="mapTransit()"></li>
+            <li id="walk-time" onclick="mapWalking()"></li>
+            <li id="share-time" onclick="mapDriving()"></li>
+            <li id="cycle-time" onclick="mapBicycling()"></li>
+            </ul>
+        </div>
+    </section>
+</main>
+<script>
+    (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+        ({key: "AIzaSyCvdsssjrDocMOxF4Ua1KdDtqU6mxi7UQQ", v: "beta"});
+</script>
 <script src="./assets/js/script.js"></script>
 </body>
 </html>
