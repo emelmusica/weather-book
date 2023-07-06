@@ -152,7 +152,7 @@ init();
 
 function getWeather(lat, lon) {
   var weatherAPIKey = "1594fc5af48b8b63f31969ab3016de9e";
-  var queryURL = "http://api.openweathermap.org/data/2.5/weather?" + "lat=" + lat + "&lon=" + lon + "&appid=" + weatherAPIKey + "&units=metric";
+  var queryURL = "https://api.openweathermap.org/data/2.5/weather?" + "lat=" + lat + "&lon=" + lon + "&appid=" + weatherAPIKey + "&units=metric";
 
   fetch(queryURL)
     .then(function (response) {
