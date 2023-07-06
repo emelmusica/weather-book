@@ -36,7 +36,7 @@
            
                 <div class="flex mb-4">
                     <div class="flex items-center">
-                    <img src="" alt="Weather Icon" class="w-16 h-16 mr-4"> <!-- Enter img src or link api property-->
+                    <img src="./assets/icons8-map-pointer-66.png" alt="Weather Icon" class="w-16 h-16 mr-4">
                     <div>
                         <h2 id="city" class="text-2xl font-semibold"></h2>
                         <p id="date" class="text-gray-500"></p>
@@ -44,12 +44,12 @@
                     </div>
                 </div>
             </div>
-            <section class="md:flex md:flex-row md:space-x-4">
+            <section class="md:flex md:flex-row md:space-x-4 space-y-4 ">
                 <div class="h-96 w-96 items-center"> <!-- Map div -->
-                    <div id="map"></div>
+                    <div id="map" class="rounded-lg"></div>
                 </div>
 
-                <div class="bg-blue-200 rounded-lg shadow-md text-center max-w-md md:w-1/3"><!--Weather Display Box-->
+                <div class="bg-blue-200 rounded-lg shadow-md text-center min-w-fit max-w-lg w-[380px]"><!--Weather Display Box-->
                     <h3 id="weather-status" class="text-2xl p-5 font-semibold"></h3>
                     <div class="my-10">
                     <img id="weather-icon" class="material-symbols-outlined"></img>
@@ -57,15 +57,15 @@
                 <div id="temperature" class="text-4xl font-semibold py-1"></div>
                 </div>
         
-                <div class="flex flex-row bg-slate-200 rounded-lg py-8 min-w-fit max-w-md md:w-1/3"><!--Travel Options Display-->
-                    <ul class="p-2 m-3 text-right font-semibold Flex-none">
+                <div class="flex flex-row bg-slate-200 rounded-lg py-8 min-w-fit max-w-lg w-[380px]"><!--Travel Options Display-->
+                    <ul class="p-2 m-3 text-right font-semibold Flex-none space-y-7">
                     <li onclick="mapDriving()">Drive</li>
                     <li onclick="mapTransit()">Public Transport</li>
                     <li onclick="mapWalking()">Walk</li>
                     <li onclick="mapDriving()">Ride Share</li>
                     <li onclick="mapBicycling()">Cycle</li>
                     </ul>
-                    <ul class="p-2 m-3 text-left Flex-none">
+                    <ul class="p-2 m-3 text-left Flex-none space-y-7">
                     <li id="drive-time" onclick="mapDriving()">Data Unavailable</li><!--These need to have some value since they li will align incorrectly if element cannot be reached-->
                     <li id="public-transport-time" onclick="mapTransit()">Data Unavailable</li>
                     <li id="walk-time" onclick="mapWalking()">Data Unavailable</li>
