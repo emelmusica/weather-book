@@ -84,7 +84,7 @@ function calcRoute(){
       shareTimeEl.text(timeDriving);
       directionsRenderer.setDirections(directionsDriving);
       saveLocation();
-      $('#current-route').text(start + " >\n" + dest);
+      $('#current-route').text("From: " + start + " heading to " + dest);
     }
   });
 
