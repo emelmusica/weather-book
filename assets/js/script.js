@@ -1,5 +1,3 @@
-// Day.js Code
-
 const dateEl =$('#date');
 const weatherIcoEl =$('#weather-icon');
 const weatherStaEl =$('#weather-status');
@@ -11,6 +9,7 @@ const walkTimeEl =$('#walk-time');
 const shareTimeEl =$('#share-time');
 const cycleTimeEl =$('#cycle-time');
 
+//Dayjs Code
 var today = dayjs();
 
 weatherStaEl.text('Check Weather at your Destination')
@@ -163,13 +162,9 @@ function getWeather(lat, lon) {
     })
     .then(function (locRes) {
 
-
-      console.log(locRes);
-
       if (!locRes) {
         console.log('No results found!');
       } else {
-        console.log(locRes.weather, locRes.main);
         $('#weather-status').text(locRes.weather[0].description);
         $('#temperature').text(locRes.main.temp + "°C");
         $('#weather-icon').attr('src', 'https://openweathermap.org/img/wn/' + locRes.weather[0].icon +'@2x.png')  
