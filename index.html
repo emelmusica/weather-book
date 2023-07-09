@@ -57,14 +57,14 @@
 
         <!-- Directions Box -->
         <div class="h-96 w-full md:w-96 m-3 flex flex-row bg-slate-200 shadow-md rounded-lg"><!--Travel Options Display-->
-            <ul class="p-2 m-3 text-right font-semibold Flex-none">
+            <ul class="p-2 m-3 text-right font-semibold Flex-none w-1/2 space-y-5">
             <li onclick="mapDriving()">Drive</li>
             <li onclick="mapTransit()">Public Transport</li>
             <li onclick="mapWalking()">Walk</li>
             <li onclick="mapDriving()">Ride Share</li>
             <li onclick="mapBicycling()">Cycle</li>
             </ul>
-            <ul class="p-2 m-3 text-left Flex-none">
+            <ul class="p-2 m-3 text-left Flex-none space-y-5">
             <li id="drive-time" onclick="mapDriving()">Please select your route</li><!--These need to have some value since they li will align incorrectly if element cannot be reached-->
             <li id="public-transport-time" onclick="mapTransit()"></li>
             <li id="walk-time" onclick="mapWalking()"></li>
